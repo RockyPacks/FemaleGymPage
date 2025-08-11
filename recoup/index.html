@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecoupYou - Women's Fitness Studio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            background: linear-gradient(45deg, #fff, #ffebee, #f8bbd0, #f06292);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
+            animation: morphBackground 15s ease infinite;
+            position: relative;
+        }
+        @keyframes morphBackground {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1.2s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .section-delay-1 { animation-delay: 0.2s; }
+        .section-delay-2 { animation-delay: 0.4s; }
+        .section-delay-3 { animation-delay: 0.6s; }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #f8e1e9, #fce4ec);
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .feature-card img {
+            width: 100%;
+            object-fit: contain;
+            display: block;
+            padding: 10px;
+            max-height: 200px;
+        }
+        .coaching-card {
+            border: 3px solid #f06292;
+        }
+        .coaching-card img {
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        .muscle-card {
+            border: 3px solid #f06292;
+            background: linear-gradient(135deg, #f8e1e9, #fce4ec);
+        }
+        .fat-loss-card {
+            border: 3px solid #f06292;
+            background: linear-gradient(135deg, #f8e1e9, #fce4ec);
+        }
+        .fat-loss-card img {
+            border-radius: 0 0 1rem 1rem;
+        }
+        .hourglass-card {
+            border: 3px solid #c2185b;
+        }
+        .hourglass-card img {
+            border-radius: 1rem 1rem 0 0;
+        }
+        .top-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 250px;
+            height: auto;
+            opacity: 1;
+            filter: drop-shadow(0 0 10px #f06292);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            z-index: 10;
+        }
+        .top-logo:hover {
+            transform: scale(1.15) translateY(-5px) rotate(5deg);
+            filter: drop-shadow(0 0 15px #d81b60);
+        }
+        .welcome-logo {
+            max-width: 400px;
+            height: auto;
+            opacity: 1;
+            filter: drop-shadow(0 0 10px #f06292);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            margin-top: 20px;
+        }
+        .welcome-logo:hover {
+            transform: scale(1.15) translateY(-5px) rotate(5deg);
+            filter: drop-shadow(0 0 15px #d81b60);
+        }
+        .section-logo {
+            max-width: 200px;
+            height: auto;
+            opacity: 1;
+            filter: drop-shadow(0 0 10px #f06292);
+            transition: transform 0.3s ease, filter 0.3s ease;
+            margin-top: 20px;
+        }
+        .section-logo:hover {
+            transform: scale(1.15) translateY(-5px) rotate(5deg);
+            filter: drop-shadow(0 0 15px #d81b60);
+        }
+        /* Pop-up styles */
+        .popup {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(240, 98, 146, 0.95), rgba(216, 27, 96, 0.95));
+            color: white;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(240, 98, 146, 0.5);
+            transform: translateZ(20px) scale(0.95);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            z-index: 20;
+            font-size: 0.9rem;
+        }
+        .feature-card:hover .popup {
+            display: flex;
+            opacity: 1;
+            transform: translateZ(30px) scale(1);
+        }
+        .popup h4 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .popup p {
+            line-height: 1.4;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .popup {
+                font-size: 0.8rem;
+                padding: 15px;
+            }
+            .popup h4 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Left Logo -->
+    
+
+    <!-- Hero Section -->
+    <section class="bg-pink-100 py-16">
+        <div class="container mx-auto text-center fade-in">
+            <h1 class="text-5xl font-bold text-pink-400">RecoupYou</h1>
+            <p class="text-lg text-gray-700 mt-4">A Women's Fitness Studio in Polokwane</p>
+            <div class="mt-8">
+                <img src="removed-background.png" alt="Inayah Dineo Sekele" class="w-80 mx-auto rounded-full shadow-lg hover-lift">
+                <p class="text-gray-700 mt-4 italic">Founded by Inayah Dineo Sekele</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto text-center slide-up section-delay-1">
+            <h2 class="text-3xl font-bold text-pink-400">Welcome to RecoupYou</h2>
+            <img src="recoupyou_logo.png" alt="RecoupYou Logo" class="welcome-logo mx-auto">
+            <p class="text-gray-700 mt-4 max-w-3xl mx-auto">RecoupYou is a sanctuary for women to transform their lives through fitness. Our studio in Polokwane offers strength training, group fitness classes, and conditioning training, all designed to empower and uplift you.</p>
+        </div>
+    </section>
+
+    <!-- Training Programs Section -->
+    <section class="py-16 bg-pink-50">
+        <div class="container mx-auto slide-up section-delay-2">
+            <h2 class="text-3xl font-bold text-center text-pink-400">Our Training Programs</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover-lift">
+                    <h3 class="text-xl font-semibold text-pink-400">Strength Training</h3>
+                    <p class="text-gray-700 mt-2">Empower your body with tailored strength training sessions crafted for women.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover-lift">
+                    <h3 class="text-xl font-semibold text-pink-400">Group Fitness Classes</h3>
+                    <p class="text-gray-700 mt-2">Experience the energy of our group classes, fostering community and motivation.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover-lift">
+                    <h3 class="text-xl font-semibold text-pink-400">Conditioning Training</h3>
+                    <p class="text-gray-700 mt-2">Boost your stamina and overall fitness with our conditioning programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collection Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto slide-up section-delay-3">
+            <h2 class="text-3xl font-bold text-center text-pink-400">Featured Collection</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-8">
+                <div class="feature-card coaching-card p-6 shadow-md hover-lift">
+                    <img src="coaching-image.png" alt="1:1 Coaching Image">
+                    <h3 class="text-lg font-semibold text-pink-400 mt-4">1:1 Coaching</h3>
+                    <p class="text-gray-700 mt-2">Personalized guidance to accelerate your fitness journey.</p>
+                    <p class="text-pink-400 font-bold mt-2">R2100,00</p>
+                    <div class="popup">
+                        <div>
+                            <h4>What to Expect</h4>
+                            <p>Receive tailored fitness plans designed specifically for your goals. With one-on-one sessions, you'll get personalized feedback, technique corrections, and motivational support. Full access to your coach ensures we adjust your program as needed to maximize results.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card muscle-card p-6 shadow-md hover-lift">
+                    <img src="muscle-gain-image.png" alt="Muscle/Weight Gain Plan Image">
+                    <h3 class="text-lg font-semibold text-pink-400 mt-4">Muscle/Weight Gain Plan</h3>
+                    <p class="text-gray-700 mt-2">A structured eating plan for healthy muscle and weight gain.</p>
+                    <p class="text-pink-400 font-bold mt-2">R250,00</p>
+                    <div class="popup">
+                        <div>
+                            <h4>What to Expect</h4>
+                            <p>Discover a nutrition plan focused on building muscle and gaining healthy weight. This guide provides meal ideas and portion recommendations tailored to your needs. Pair with our training plans for optimal results, with full access to me for adjustments and support.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card fat-loss-card p-6 shadow-md hover-lift">
+                    <img src="fat-loss-image.png" alt="Fat Loss Eating Plan Image">
+                    <h3 class="text-lg font-semibold text-pink-400 mt-4">Fat Loss Eating Plan</h3>
+                    <p class="text-gray-700 mt-2">A sustainable plan to help you shed fat while staying energized.</p>
+                    <p class="text-pink-400 font-bold mt-2">R250,00</p>
+                    <div class="popup">
+                        <div>
+                            <h4>What to Expect</h4>
+                            <p>Learn how to eat for your fat loss goals with a sustainable nutrition plan. This general guideline may not fit everyone’s needs, so with the purchase of both training and eating plans, you’ll have full access to me to monitor and adjust your approach for your desired results.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card hourglass-card p-6 shadow-md hover-lift">
+                    <img src="hourglass-challenge-image.png" alt="Hourglass Challenge Image">
+                    <h3 class="text-lg font-semibold text-pink-400 mt-4">Hourglass Challenge</h3>
+                    <p class="text-gray-700 mt-2">A 6-week home-based program to shape your body.</p>
+                    <p class="text-pink-400 font-bold mt-2">R450,00</p>
+                    <div class="popup">
+                        <div>
+                            <h4>What to Expect</h4>
+                            <p>Transform your body with this 6-week home-based program designed to sculpt an hourglass figure. Includes workouts and nutrition tips tailored for home use. With full access to me, we’ll tweak the plan as needed to help you achieve your dream physique.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img src="recoupyou_logo.png" alt="RecoupYou Logo" class="section-logo mx-auto">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-pink-100">
+        <div class="container mx-auto text-center slide-up section-delay-1">
+            <h2 class="text-3xl font-bold text-pink-400">Contact Us</h2>
+            <p class="text-gray-700 mt-4">Located in Polokwane, we're here to support your fitness journey.</p>
+            <p class="text-gray-700 mt-2">Phone: <a href="tel:0725817797" class="text-pink-400 hover:underline">0725817797</a></p>
+            <div class="flex justify-center space-x-6 mt-6">
+                <a href="https://www.instagram.com/deefittee_?igsh=MWVyemVwZ3E3bXI5Zg%3D%3D&utm_source=qr" target="_blank" class="text-pink-400 hover:text-pink-600">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.326 3.608 1.301.975.975 1.24 2.242 1.301 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.326 2.633-1.301 3.608-.975.975-2.242 1.24-3.608 1.301-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.326-3.608-1.301-.975-.975-1.24-2.242-1.301-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.326-2.633 1.301-3.608.975-.975 2.242-1.24 3.608-1.301 1.266-.058 1.646-.07 4.85-.07m0-2.163c-3.259 0-3.667.014-4.947.072-1.627.073-3.043.478-4.162 1.597-1.12 1.12-1.524 2.536-1.597 4.162-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.073 1.627.478 3.043 1.597 4.162 1.12 1.12 2.536 1.524 4.162 1.597 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.627-.073 3.043-.478 4.162-1.597 1.12-1.12 1.524-2.536 1.597-4.162.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.073-1.627-.478-3.043-1.597-4.162-1.12-1.12-2.536-1.524-4.162-1.597-1.28-.058-1.688-.072-4.947-.072z"/></svg>
+                </a>
+                <a href="https://www.facebook.com/dineothamagas/" target="_blank" class="text-pink-400 hover:text-pink-600">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .732.593 1.324 1.325 1.324h11.494v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24h-1.918c-1.504 0-1.794.715-1.794 1.763v2.313h3.587l-.467 3.622h-3.12v9.294h6.116c.732 0 1.325-.593 1.325-1.324v-21.351c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                </a>
+                <a href="https://youtube.com/@builtbydee?si=lijfs0Td2alchPtZ" target="_blank" class="text-pink-400 hover:text-pink-600">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186c-.276-1.038-1.092-1.853-2.13-2.129-1.874-.5-9.368-.5-9.368-.5s-7.494 0-9.368.5c-1.038.276-1.854 1.091-2.13 2.129-.5 1.874-.5 5.814-.5 5.814s0 3.94.5 5.814c.276 1.038 1.092 1.853 2.13 2.129 1.874.5 9.368.5 9.368.5s7.494 0 9.368-.5c1.038-.276 1.854-1.091 2.13-2.129.5-1.874.5-5.814.5-5.814s0-3.94-.5-5.814zm-13.498 9.314v-7l6.5 3.5-6.5 3.5z"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-pink-200 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>© 2025 RecoupYou. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
